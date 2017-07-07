@@ -1,0 +1,2 @@
+new inventory_plus_bags.png from Inventory Icon mod by Wuzzy
+`inventory_icon_backpack_free.png`: DitsyDM and Traipse OpenRPG (CC-BY-SA 3.0 Unported)

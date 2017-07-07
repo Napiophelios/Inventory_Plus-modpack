@@ -1,0 +1,10 @@
+
+removed unused tabs
+renamed remaining tabs
+
+added refill slot
+modified formspec to accomodate refill feild
+
+added sound FX for trash and refill functions
+
+

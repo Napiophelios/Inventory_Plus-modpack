@@ -1,0 +1,2 @@
+map texture: CC BY-SA by TeTpaAka (slight modifications by Kilarin for blank map)
+from CompassGPS mod by Kilarin
