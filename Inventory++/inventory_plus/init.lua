@@ -91,10 +91,15 @@ inventory_plus.get_formspec = function(player,page)
 	end
 	-- craft page
 	if page=="main" then
+		if minetest.setting_getbool("creative_mode") then
+			return player:get_inventory_formspec()
+				.. get_buttons(0,3.615,8)
+		else
 			return inventory_plus.inventory[player:get_player_name()]
 				.. get_buttons(0,3.615,8)
 		end
 	end
+end
 
 -- register_on_joinplayer
 minetest.register_on_joinplayer(function(player)
@@ -103,10 +108,9 @@ minetest.register_on_joinplayer(function(player)
 	end
 	minetest.after(1,function()
 		if not player:is_player() then return end
-	inventory_plus.set_inventory_formspec(player,inventory_plus.get_formspec(player, inventory_plus.default))
+		inventory_plus.set_inventory_formspec(player,inventory_plus.get_formspec(player, inventory_plus.default))
 	end)
 end)
-
 
 -- register_on_player_receive_fields
 minetest.register_on_player_receive_fields(function(player, formname, fields)
