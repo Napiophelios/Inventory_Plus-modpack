@@ -113,7 +113,7 @@ function creative.register_tab(name, title, items)
 					list[current_player;main;0,5.85;8,3;8]
 					list[detached:creative_trash;main;4,3.3;1,1;]
 					listring[]
-     list[detached:creative_refill;main;5,3.3;1,1;]
+					list[detached:creative_refill;main;5,3.3;1,1;]
 					button[6,3.342;1,0.9;creative_prev;<]
 					button[7,3.342;1,0.9;creative_next;>]
 					button[3.3,3.342;0.8,0.9;creative_search;?]
