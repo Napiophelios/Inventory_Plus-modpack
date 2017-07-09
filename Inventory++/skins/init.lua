@@ -81,8 +81,8 @@ skins.formspec.main = function(name)
 local index = 0
 	local skip = 8 -- Skip skins, used for pages
 	for i, skin in ipairs(skins.list) do
-		if skip < page*24 then skip = skip + 1 else
-			if index < 24 then
+		if skip < page*16 then skip = skip + 1 else
+			if index < 16 then
 				formspec = formspec .. "image_button["..(index%8)..","..((math.floor(index/8))*2+3)..";1,2;"..skin
 				if skins.get_type(skin) == skins.type.MODEL then
 					formspec = formspec .. "_preview"

@@ -13,7 +13,7 @@ local trash = minetest.create_detached_inventory("crafting_trash", {
 })
 trash:set_size("main", 1)
 
-if minetest.setting_getbool("enable_damage") then
+--[[if minetest.setting_getbool("enable_damage") then
 sfinv.register_page("sfinv:crafting", {
 	title = "Crafting",
 	get = function(self, player, context)
@@ -33,6 +33,7 @@ sfinv.register_page("sfinv:crafting", {
 })
 
 else
+--]]
 
 sfinv.register_page("sfinv:crafting", {
 	title = "Crafting",
@@ -53,4 +54,5 @@ sfinv.register_page("sfinv:crafting", {
 			]], true)
 	end
 })
-end
+
+--end
