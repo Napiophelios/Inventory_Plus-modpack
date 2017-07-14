@@ -108,9 +108,9 @@ bookmarks_gui.formspec = function(player)
 	local pages = bookmarks_gui.get_names()
 	local x,y = 0,1
 	local p
-	for i = #pages,1,-1 do
+	for i = #pages,0.5,-1 do
 		p = pages[i]
-		if x == 14 then
+		if x == 8 then
 			y = y+1
 			x = 0
 		end
@@ -121,10 +121,10 @@ bookmarks_gui.formspec = function(player)
 		formspec = formspec
 			.."label[2.15,3.25; --== Bookmarks GUI ==--]"
 	end
-	formspec = formspec
+	--formspec = formspec
 --	if minetest.check_player_privs(player:get_player_name(), {server=true}) then
 		formspec = formspec
-   .."button_exit[6,8.25;2,0.5;quit;Close]"
+ --  .."button_exit[6,8.25;2,0.5;quit;Close]"
 			.."field[2.3,0.1;2,1;bookmarks_gui_del_name;;]"
 			.."button[3.95,0;1,0.5;bookmarks_gui_del;Del]"
 			.."field[5.35,0.1;2,1;bookmarks_gui_set_name;;]"
@@ -172,4 +172,4 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 end)
 
 -- log that we started
-minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded from "..minetest.get_modpath(minetest.get_current_modname()))
+--minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded from "..minetest.get_modpath(minetest.get_current_modname()))
