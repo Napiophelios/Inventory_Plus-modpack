@@ -60,14 +60,14 @@ end
 -- get_formspec
 home_gui.get_formspec = function(player)
 	local formspec = "size[8,8.6]"
-   ..default.gui_bg
-  ..default.gui_bg_img
-  ..default.gui_slots
-		.."button[0,0;2,0.5;main;Back]"
-		.."button_exit[1,2;2,0.5;home_gui_set;Set Home]"
-		.."button_exit[5,2;2,0.5;home_gui_go;Go Home]"
-  .."list[current_player;main;0,4.7;8,1;]"
-  .."list[current_player;main;0,5.85;8,3;8]"
+	..default.gui_bg
+	..default.gui_bg_img
+	..default.gui_slots
+	.."button[0,0;2,0.5;main;Back]"
+	.."button_exit[1,2;2,0.5;home_gui_set;Set Home]"
+	.."button_exit[5,2;2,0.5;home_gui_go;Go Home]"
+	.."list[current_player;main;0,4.7;8,1;]"
+	.."list[current_player;main;0,5.85;8,3;8]"
 	local home = homepos[player:get_player_name()]
 	if home ~= nil then
 		formspec = formspec
@@ -87,14 +87,16 @@ end)
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if fields.home_gui_set then
 		home_gui.set_home(player, player:getpos())
+		inventory_plus.set_inventory_formspec(player, inventory_plus.get_formspec(player,"main"))
 	end
 	if fields.home_gui_go then
 		home_gui.go_home(player)
+		inventory_plus.set_inventory_formspec(player, inventory_plus.get_formspec(player,"main"))
 	end
-	if fields.home_gui or fields.home_gui_set or fields.home_gui_go then
+	if fields.home_gui then
 		inventory_plus.set_inventory_formspec(player, home_gui.get_formspec(player))
 	end
 end)
 
 -- log that we started
-minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded from "..minetest.get_modpath(minetest.get_current_modname()))
+--minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded from "..minetest.get_modpath(minetest.get_current_modname()))
