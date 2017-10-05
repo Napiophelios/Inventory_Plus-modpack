@@ -1,3 +1,0 @@
-inventory_plus_home_gui.png by Gambit
-from PixelBox Texture pack
-License WTFPL
