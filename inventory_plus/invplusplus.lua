@@ -1,21 +1,3 @@
---[[
-
-Inventory Plus+ for Minetest
-
-Copyright (c) 2012 cornernote, Brett O'Donnell <cornernote@gmail.com>
-Copyright (c) 2013 Zeg9 <dazeg9@gmail.com>
-Source Code: https://github.com/Zeg9/minetest-inventory_plus
-License: GPLv3
-
-]]--
-
---[[
-TODO:
- * Limit the number of buttons displayed, and then:
- * Multiple button pages (inventory can only display 6 buttons)
- * Fallback to text if no image is present ?
-]]--
-
 
 -- expose api
 inventory_plus = {}
@@ -127,6 +109,3 @@ minetest.register_on_player_receive_fields(function(player, formname, fields)
 		return
 	end
 end)
-
--- log that we started
-minetest.log("action", "[MOD]"..minetest.get_current_modname().." -- loaded from "..minetest.get_modpath(minetest.get_current_modname()))

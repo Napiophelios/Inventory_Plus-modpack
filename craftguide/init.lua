@@ -106,7 +106,7 @@ function craftguide:get_recipe(iY, xoffset, tooltip, item, recipe_num, recipes)
 
 	if width == 0 then width = min(3, #items) end
 	local rows = ceil(maxn(items) / width)
-	local btn_size, craftgrid_limit = 1, 5
+	local btn_size, craftgrid_limit = 1, 3
 
 	if recipe_type == "normal" and
 			width > craftgrid_limit or rows > craftgrid_limit then
@@ -146,7 +146,7 @@ end
 
 function craftguide:get_formspec(player_name, is_fuel)
 	local data = datas[player_name]
-	local iY = data.iX - 5
+	local iY = data.iX -3
 	local ipp = data.iX * iY
 
 	if not data.items then
@@ -154,22 +154,17 @@ function craftguide:get_formspec(player_name, is_fuel)
 	end
 	data.pagemax = max(1, ceil(#data.items / ipp))
 
-	local formspec = "size[" .. data.iX .. "," .. (iY + 3) .. ".6;]" .. [[
-			background[1,1;1,1;craftguide_bg.png;true]
+	local formspec = "size[8,8.6]" .. [[
 			button[2.4,0.21;0.8,0.5;search;?]
 			button[3.05,0.21;0.8,0.5;clear;X]
 			tooltip[search;Search]
 			tooltip[clear;Reset]
-			tooltip[size_inc;Increase window size]
-			tooltip[size_dec;Decrease window size]
 			field_close_on_enter[filter;false] ]] ..
-			"button[" .. (data.iX / 2) .. ",-0.02;0.7,1;size_inc;+]" ..
-			"button[" .. ((data.iX / 2) + 0.5) ..
-				",-0.02;0.7,1;size_dec;-]" ..
-			"button[" .. (data.iX - 3) .. ".4,0;0.8,0.95;prev;<]" ..
-			"label[" .. (data.iX - 2) .. ".1,0.18;" ..
+   default.gui_bg_img ..
+			"button[5,0;0.8,0.95;prev;<]" ..
+			"label[6,0.18;" ..
 				colorize(data.pagenum) .. " / " .. data.pagemax .. "]" ..
-			"button[" .. (data.iX - 1) .. ".2,0;0.8,0.95;next;>]" ..
+			"button[7,0;0.8,0.95;next;>]" ..
 			"field[0.3,0.32;2.5,1;filter;;" ..
 				mt.formspec_escape(data.filter) .. "]"
 
@@ -397,7 +392,7 @@ function craftguide:on_use(itemstack, user)
 	local data = datas[player_name]
 
 	if progressive_mode or not data then
-		datas[player_name] = {filter = "", pagenum = 1, iX = 9}
+		datas[player_name] = {filter = "", pagenum = 1, iX = 8}
 		if progressive_mode then
 			craftguide:get_filter_items(datas[player_name], user)
 		end
@@ -406,78 +401,6 @@ function craftguide:on_use(itemstack, user)
 		show_formspec(player_name, "craftguide", data.formspec)
 	end
 end
-
-mt.register_craftitem("craftguide:book", {
-	description = "Crafting Guide",
-	inventory_image = "craftguide_book.png",
-	wield_image = "craftguide_book.png",
-	stack_max = 1,
-	groups = {book = 1},
-	on_use = function(itemstack, user)
-		craftguide:on_use(itemstack, user)
-	end
-})
-
-mt.register_node("craftguide:sign", {
-	description = "Crafting Guide Sign",
-	drawtype = "nodebox",
-	tiles = {"craftguide_sign.png"},
-	inventory_image = "craftguide_sign_inv.png",
-	wield_image = "craftguide_sign_inv.png",
-	paramtype = "light",
-	paramtype2 = "wallmounted",
-	sunlight_propagates = true,
-	groups = {wood = 1, oddly_breakable_by_hand = 1, flammable = 3},
-	node_box = {
-		type = "wallmounted",
-		wall_top    = {-0.4375, 0.4375, -0.3125, 0.4375, 0.5, 0.3125},
-		wall_bottom = {-0.4375, -0.5, -0.3125, 0.4375, -0.4375, 0.3125},
-		wall_side   = {-0.5, -0.3125, -0.4375, -0.4375, 0.3125, 0.4375}
-	},
-	on_construct = function(pos)
-		local meta = minetest.get_meta(pos)
-		meta:set_string("infotext", "Crafting Guide Sign")
-	end,
-	on_rightclick = function(pos, node, user, itemstack)
-		craftguide:on_use(itemstack, user)
-	end
-})
-
-mt.register_craft({
-	output = "craftguide:book",
-	type = "shapeless",
-	recipe = {"default:book"}
-})
-
-mt.register_craft({
-	type = "fuel",
-	recipe = "craftguide:book",
-	burntime = 3
-})
-
-mt.register_craft({
-	output = "craftguide:sign",
-	type = "shapeless",
-	recipe = {"default:sign_wall_wood"}
-})
-
-mt.register_craft({
-	type = "fuel",
-	recipe = "craftguide:sign",
-	burntime = 10
-})
-
-if rawget(_G, "sfinv_buttons") then
-	sfinv_buttons.register_button("craftguide", {
-		title = "Crafting guide",
-		tooltip = "Shows a list of available crafting recipes, cooking recipes and fuels",
-		action = function(player)
-			craftguide:on_use(nil, player)
-		end,
-		image = "craftguide_book.png",
-	})
-end
-
 
 if rawget(_G, "inventory_plus") then
 minetest.register_on_joinplayer(function(player)
